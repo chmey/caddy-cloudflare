@@ -8,7 +8,7 @@ jobs:
   build-latest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # tag=v2
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
 
       - name: Login to GitHub Container registry
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # v2
@@ -27,7 +27,7 @@ jobs:
   build-alpine:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # tag=v2
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
 
       - name: Login to GitHub Container registry
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # v2
