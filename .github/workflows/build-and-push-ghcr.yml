@@ -1,0 +1,46 @@
+name: Build and push to GitHub Container registry
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+jobs:
+  build-latest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # tag=v2
+
+      - name: Login to GitHub Container registry
+        uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7 # tag=v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Regular Docker Image
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a # tag=v2
+        with:
+          context: "${{ github.workspace }}"
+          push: true
+          tags: ghcr.io/chmey/caddy-cloudflare:latest
+
+  build-alpine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # tag=v2
+
+      - name: Login to GitHub Container registry
+        uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7 # tag=v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Alpine Docker Image
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a # tag=v2
+        with:
+          registry: ghcr.io
+          context: "${{ github.workspace }}"
+          push: true
+          tags: ghcr.io/chmey/caddy-cloudflare:alpine
+          file: "Dockerfile.alpine"
