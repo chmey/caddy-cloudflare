@@ -1,6 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    ":preserveSemverRanges",
+    "helpers:pinGitHubActionDigests",
+    "docker:pinDigests"
+  ],
+  "ignorePaths": [
+    ".github/workflows/auto-build-on-base-image-change.yml"
   ]
 }
