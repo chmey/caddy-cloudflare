@@ -1,6 +1,6 @@
 FROM caddy:builder-alpine@sha256:d7aaad0a397b237c342d5706e3d8280749f2f568fb4d555c5614a079b662bebf AS builder
 
-RUN xcaddy build --with github.com/caddy-dns/cloudflare
+RUN xcaddy build --with github.com/caddy-dns/cloudflare@a9d3ae2690a1d232bc9f8fc8b15bd4e0a6960eec
 
 FROM caddy:alpine@sha256:4dfec6c3b22c36b63ea4a3633c7cdbdaa9926d1324c27db2b0e2b70ef9cd105a
 
