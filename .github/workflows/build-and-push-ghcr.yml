@@ -1,5 +1,8 @@
 name: Build and push to GitHub Container registry
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "0 3 * * 1"
   workflow_dispatch:
