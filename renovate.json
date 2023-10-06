@@ -6,10 +6,13 @@
     "helpers:pinGitHubActionDigests",
     "docker:pinDigests"
   ],
-  "ignorePaths": [
-    ".github/workflows/auto-build-on-base-image-change.yml"
-  ],
   "packageRules": [
+    {
+      "description": "",
+      "matchDatasources": ["docker"],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(-(?<compatibility>.*))?$",
+      "matchPackageNames": ["caddy"]
+    },
     {
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": [
