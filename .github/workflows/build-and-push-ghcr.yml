@@ -19,10 +19,16 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+    
+      - name: Get upstream tag
+        id: get_upstream_tag
+        run:  echo "::set-output name=tag::$(grep -oP '(?<=FROM caddy:)([0-9]+\.[0-9]+\.[0-9]+)(?=@)' Dockerfile)"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@0a97817b6ade9f46837855d676c4cca3a2471fc9 # v4
         with:
           context: "${{ github.workspace }}"
           push: true
-          tags: ghcr.io/chmey/caddy-cloudflare:latest
+          tags: |
+            ghcr.io/chmey/caddy-cloudflare:latest
+            ghcr.io/chmey/caddy-cloudflare:${{ steps.get_upstream_tag.outputs.tag }}
