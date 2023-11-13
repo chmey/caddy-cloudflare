@@ -22,7 +22,7 @@ jobs:
     
       - name: Get upstream tag
         id: get_upstream_tag
-        run:  echo "::set-output name=tag::$(grep -oP '(?<=FROM caddy:)([0-9]+\.[0-9]+\.[0-9]+)(?=@)' Dockerfile)"
+        run:  echo "UPSTREAM_TAG=$(grep -oP '(?<=FROM caddy:)([0-9]+\.[0-9]+\.[0-9]+)(?=@)' Dockerfile)" >> "$GITHUB_OUTPUT"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@0a97817b6ade9f46837855d676c4cca3a2471fc9 # v4
@@ -31,4 +31,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/chmey/caddy-cloudflare:latest
-            ghcr.io/chmey/caddy-cloudflare:${{ steps.get_upstream_tag.outputs.tag }}
+            ghcr.io/chmey/caddy-cloudflare:${{ steps.get_upstream_tag.outputs.UPSTREAM_TAG }}
